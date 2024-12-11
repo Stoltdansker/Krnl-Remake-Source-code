@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #container {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <input type="hidden" id="hiddenInput" />
+
+    <script src="./vs/loader.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var editor;
+
+        require(["./vs/editor/editor.main"], function () {
+            monaco.editor.defineTheme('myCustomTheme', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [],
+                colors: {
+                    'editor.background': '#282828',
+                    'editor.foreground': '#FFFFFF'
+                }
+            });
+
+            editor = monaco.editor.create(document.getElementById("container"), {
+                value: 'print("discord.gg/s57qegHfHS")',
+                language: "lua",
+                theme: "myCustomTheme",
+                dragAndDrop: true,
+                links: true,
+                minimap: {
+                    enabled: false,
+                },
+                showFoldingControls: "always",
+                smoothScrolling: false,
+            });
+        });
+
+        function getValue() {
+            return editor.getValue();
+        }
+
+        function setValue(value) {
+            editor.setValue(value);
+        }
+
+        function transferValueToHiddenInput() {
+            var value = getValue();
+            console.log("Editor value:", value);
+            document.getElementById('hiddenInput').value = value;
+            console.log("Hidden input value:", document.getElementById('hiddenInput').value);
+        }
+        
+        window.clearEditor = function() {
+            editor.setValue("");           
+        }
+
+        function startuptext() {
+            editor.setValue("--MonsterSploit---");           
+        }
+    </script>
+</body>
+</html>
